@@ -20,12 +20,12 @@ public class PostController {
     }
 
     @GetMapping("/posts/create") @ResponseBody
-    public String createPost(){
+    public String showCreateForm(){
         return "Here is the form to create a post";
     }
 
     @PostMapping("/posts/create") @ResponseBody
-    public String createPost(String post){
-        return "create new " + post;
+    public String submitPost(){
+        return "create new post";
     }
 }
