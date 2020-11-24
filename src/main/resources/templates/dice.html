@@ -19,6 +19,16 @@
 </div>
 
 
+<p>Guessed Number: <span th:text="${num}"></span></p>
+<p>Rolled Number: <span th:text="${randomNumber}"></span></p>
+
+<div th:if="${correctGuess}">
+    <p>You guessed correct.</p>
+</div>
+
+<div th:if="${correctGuess != true}">
+    <p>You guessed wrong</p>
+</div>
 
 </body>
 </html>

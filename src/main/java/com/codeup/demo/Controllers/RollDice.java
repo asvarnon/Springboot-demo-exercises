@@ -16,12 +16,14 @@ public class RollDice {
         return "/dice";
     }
 
-    @PostMapping("/roll-dice/{num}")
+    @GetMapping("/roll-dice/{num}")
     public String showAnswer(@PathVariable int num, Model model) {
+        int rolledNum = rollDice(1, 6);
+        boolean correctGuess = (num == rolledNum);
         model.addAttribute("num", num);
-        if (num == rollDice(1, 6)) {
+        model.addAttribute("randomNumber", rolledNum);
+        model.addAttribute("correctGuess", correctGuess);
 
-        }
         return "/dice";
     }
 
