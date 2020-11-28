@@ -7,10 +7,13 @@
 <body>
 <h1>this is post SHOW.</h1>
 
-<div th:each="post : ${post-list}">
-    <p th:text="${post.title}" />
-    <p th:text="${post.description}" />
+<div>
+    <div th:each="post : ${post-list}">
+        <p th:text="${post.title}" />
+        <p th:text="${post.description}" />
+    </div>
 </div>
+
 
 </body>
 </html>
