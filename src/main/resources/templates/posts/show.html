@@ -8,9 +8,9 @@
 <h1>this is post SHOW.</h1>
 
 <div>
-    <div th:each="post : ${post-list}">
+    <div th:each="post : ${postList}">
         <p th:text="${post.title}" />
-        <p th:text="${post.description}" />
+        <p th:text="${post.body}" />
     </div>
 </div>
 

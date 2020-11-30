@@ -19,7 +19,7 @@ public class PostController {
         posts.add(new Post("Post title", "post body"));
         posts.add(new Post("Post title num1", "post body num1"));
 
-        model.addAttribute("post-list", posts);
+        model.addAttribute("postList", posts);
         return "/posts/show";
     }
 
