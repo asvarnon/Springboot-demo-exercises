@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-//    List<Post> findAllByTitle(String param)();
+//    Post findByDescription(String desc);
+    List<Post> findAllByTitleIsLike(String term);
 
 }

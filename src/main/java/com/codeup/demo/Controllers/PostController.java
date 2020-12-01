@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class PostController {
 
@@ -21,12 +23,13 @@ public class PostController {
         return "/posts/index";
     }
 
-//    @GetMapping("/ads/search") @ResponseBody
-//    public String search(@RequestParam(name="term") String term){
-//       term = "%"+term+"%";
-//       Post dbPost = postDao.findById(term);
-//       return "ad found with id";
-//    }
+    @GetMapping("/ads/search")
+    public String search(@RequestParam(name="term") String term, Model viewModel){
+       term = "%"+term+"%";
+       List<Post> dbPosts = postDao.findAllByTitleIsLike(term);
+       viewModel.addAttribute("posts", dbPosts);
+       return "posts/index";
+    }
 
     @GetMapping("/posts/{id}")
     public String post(@PathVariable int id, Model model){
@@ -45,8 +48,15 @@ public class PostController {
             @RequestParam(name = "title") String title,
             @RequestParam(name = "description") String body
     ){
-        Post post = new Post("title", "ps5");
-        postDao.save(post);
-        return "create new post";
+        Post post = new Post(title, body);
+        Post dbPost = postDao.save(post);
+        return "create new post with the id" + dbPost.getId();
     }
+
+//    @PostMapping("/posts/delete") @ResponseBody
+//    public String deletePost(){
+//        return;
+//    }
+
+
 }

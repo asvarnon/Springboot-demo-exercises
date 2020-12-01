@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-//@Table(name="posts");
+@Table(name="posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +18,13 @@ public class Post {
 
     public Post(){};
 
+    //create
     public Post(String title, String body){
         this.title = title;
         this.body = body;
     }
 
+    //read
     public Post(long id, String title, String body){
         this.id = id;
         this.title = title;
