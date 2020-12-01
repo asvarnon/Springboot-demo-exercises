@@ -1,27 +1,32 @@
 package com.codeup.demo.Controllers;
 
 import com.codeup.demo.model.Post;
+import com.codeup.demo.repos.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PostController {
 
-    @GetMapping("/posts")
-    public String posts(Model model) {
-        ArrayList<Post> posts = new ArrayList<>();
-        posts.add(new Post("Post title", "post body"));
-        posts.add(new Post("Post title num1", "post body num1"));
+    private final PostRepository postDao;
 
-        model.addAttribute("postList", posts);
-        return "/posts/show";
+    public PostController(PostRepository postDao){
+        this.postDao = postDao;
     }
+
+    @GetMapping("/posts")
+    public String posts(Model viewModel) {
+        viewModel.addAttribute("posts", postDao.findAll());
+        return "/posts/index";
+    }
+
+//    @GetMapping("/ads/search") @ResponseBody
+//    public String search(@RequestParam(name="term") String term){
+//       term = "%"+term+"%";
+//       Post dbPost = postDao.findById(term);
+//       return "ad found with id";
+//    }
 
     @GetMapping("/posts/{id}")
     public String post(@PathVariable int id, Model model){
@@ -30,13 +35,18 @@ public class PostController {
         return "/posts/index";
     }
 
-    @GetMapping("/posts/create") @ResponseBody
+    @GetMapping("/posts/create")
     public String showCreateForm(){
-        return "Here is the form to create a post";
+        return "/posts/new";
     }
 
     @PostMapping("/posts/create") @ResponseBody
-    public String submitPost(){
+    public String createPost(
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "description") String body
+    ){
+        Post post = new Post("title", "ps5");
+        postDao.save(post);
         return "create new post";
     }
 }
