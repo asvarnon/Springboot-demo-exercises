@@ -19,6 +19,9 @@
         <br>
         <input type="submit">
     </form>
+    <form th:action="@{/posts/{id}/delete(id=${post.getId()})}" th:method="post">
+        <button class="btn btn-danger">Delete</button>
+    </form>
 </main>
 
 <footer th:replace="partials/partials :: footer"></footer>
