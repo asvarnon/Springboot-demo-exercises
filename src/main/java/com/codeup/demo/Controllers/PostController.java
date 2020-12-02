@@ -20,7 +20,7 @@ public class PostController {
     @GetMapping("/posts")
     public String posts(Model viewModel) {
         viewModel.addAttribute("posts", postDao.findAll());
-        return "/posts/index";
+        return "posts/index";
     }
 
     @GetMapping("/ads/search")
@@ -35,12 +35,12 @@ public class PostController {
     public String post(@PathVariable int id, Model model){
         model.addAttribute("postNum", id);
 
-        return "/posts/index";
+        return "posts/index";
     }
 
     @GetMapping("/posts/create")
     public String showCreateForm(){
-        return "/posts/new";
+        return "posts/new";
     }
 
     @PostMapping("/posts/create") @ResponseBody
@@ -52,6 +52,26 @@ public class PostController {
         Post dbPost = postDao.save(post);
         return "create new post with the id" + dbPost.getId();
     }
+
+    @GetMapping("/posts/edit")
+    public String showEditForm(@PathVariable long id, Model viewModel){
+        viewModel.addAttribute("post", postDao.getOne(id));
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String editPost(
+            @PathVariable long id,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "description") String body
+    ){
+        Post dbPost = postDao.getOne(id);
+        dbPost.setTitle(title);
+        dbPost.setBody(body);
+        postDao.save(dbPost);
+        return "redirect:/posts/" + dbPost.getId();
+    }
+
 
 //    @PostMapping("/posts/delete") @ResponseBody
 //    public String deletePost(){
