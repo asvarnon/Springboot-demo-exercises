@@ -37,11 +37,6 @@ public class PostController {
         return "posts/show";
     }
 
-//    @GetMapping("/posts/{id}")
-//    public String show(@PathVariable long id, Model viewModel){
-//        viewModel.addAttribute("post", postDao.getOne(id));
-//        return "posts/show";
-//    }
 
     @GetMapping("/posts/create")
     public String showCreateForm(){
@@ -53,7 +48,7 @@ public class PostController {
             @RequestParam(name = "title") String title,
             @RequestParam(name = "description") String body
     ){
-        Post post = new Post(title, body);
+        Post post = new Post(title, body, null);
         Post dbPost = postDao.save(post);
         return "redirect:/posts/" + dbPost.getId();
     }
