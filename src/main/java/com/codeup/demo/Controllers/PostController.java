@@ -1,7 +1,9 @@
 package com.codeup.demo.Controllers;
 
 import com.codeup.demo.model.Post;
+import com.codeup.demo.model.User;
 import com.codeup.demo.repos.PostRepository;
+import com.codeup.demo.repos.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +14,11 @@ import java.util.List;
 public class PostController {
 
     private final PostRepository postDao;
+    private final UserRepository userDao;
 
-    public PostController(PostRepository postDao){
+    public PostController(PostRepository postDao, UserRepository userDao){
         this.postDao = postDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/posts")
@@ -23,7 +27,7 @@ public class PostController {
         return "posts/index";
     }
 
-    @GetMapping("/ads/search")
+    @GetMapping("/posts/search")
     public String search(@RequestParam(name="term") String term, Model viewModel){
        term = "%"+term+"%";
        List<Post> dbPosts = postDao.findAllByTitleIsLike(term);
@@ -48,7 +52,8 @@ public class PostController {
             @RequestParam(name = "title") String title,
             @RequestParam(name = "description") String body
     ){
-        Post post = new Post(title, body, null, null);
+        User user = userDao.getOne(1L);
+        Post post = new Post(title, body, user, null);
         Post dbPost = postDao.save(post);
         return "redirect:/posts/" + dbPost.getId();
     }
