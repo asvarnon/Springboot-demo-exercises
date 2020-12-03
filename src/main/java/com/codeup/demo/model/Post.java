@@ -23,6 +23,14 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<PostImage> images;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="posts_categories",
+            joinColumns = {@JoinColumn(name= "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")}
+    )
+    private List<PostCategory> categories;
+
     public Post(){};
 
     //CREATE note: has all info but id
@@ -80,5 +88,13 @@ public class Post {
 
     public void setImages(List<PostImage> images) {
         this.images = images;
+    }
+
+    public List<PostCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<PostCategory> categories) {
+        this.categories = categories;
     }
 }
