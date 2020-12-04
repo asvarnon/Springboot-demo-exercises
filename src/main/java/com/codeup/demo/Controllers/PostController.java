@@ -63,15 +63,10 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String editPost(
-            @PathVariable long id,
-            @RequestParam(name = "title") String title,
-            @RequestParam(name = "description") String body
-    ){
-        Post dbPost = postDao.getOne(id);
-        dbPost.setTitle(title);
-        dbPost.setBody(body);
-        postDao.save(dbPost);
+    public String editPost(@ModelAttribute Post postToBeEdited){
+        User userDb = userDao.getOne(1L);
+        postToBeEdited.setOwner(userDb);
+        Post dbPost = postDao.save(postToBeEdited);
         return "redirect:/posts/" + dbPost.getId();
     }
 

@@ -13,6 +13,12 @@
         <h3 class="text-center"><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}"/> </h3>
 <!--        NOTE: ABOVE FOR THYMELEAF ID REFERENCE IN HREF-->
         <p th:text="${post.body}"></p>
+        <form th:action="@{/posts/{id}/edit(id=${post.getId()})}" th:method="get">
+            <button class="btn btn-danger">Edit</button>
+        </form>
+        <form th:action="@{/posts/{id}/delete(id=${post.getId()})}" th:method="post">
+            <button class="btn btn-danger">Delete</button>
+        </form>
     </div>
 </main>
 
