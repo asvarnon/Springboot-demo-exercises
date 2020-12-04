@@ -16,7 +16,7 @@
         <form th:action="@{/posts/{id}/edit(id=${post.getId()})}" th:method="get">
             <button class="btn btn-danger">Edit</button>
         </form>
-        <form th:action="@{/posts/{id}/delete(id=${post.getId()})}" th:method="post">
+        <form th:action="@{|/posts/${post.id}/delete|}" th:method="post">
             <button class="btn btn-danger">Delete</button>
         </form>
     </div>
