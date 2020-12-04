@@ -10,12 +10,12 @@
 <header th:replace="partials/header :: header('Welcome to Codeup Blog!')"></header>
 
 <main class="container">
-    <form th:action="@{/posts/create}" th:method="post">
+    <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
         Title:
-        <input name="title" id="name-ipt">
+        <input name="title" id="name-ipt" th:field="*{title}">
         <br>
         Description:
-        <input name="description">
+        <input name="body" th:field="*{body}">
         <br>
         <input type="submit">
     </form>
