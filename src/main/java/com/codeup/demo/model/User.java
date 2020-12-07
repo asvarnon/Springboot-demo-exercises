@@ -35,6 +35,13 @@ public class User {
         this.password = password;
     }
 
+    public User(User copy) {
+        id = copy.id; // Needed for security.
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
+
     public long getId() {
         return id;
     }

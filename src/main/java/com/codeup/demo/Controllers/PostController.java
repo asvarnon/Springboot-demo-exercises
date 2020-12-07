@@ -5,6 +5,7 @@ import com.codeup.demo.model.User;
 import com.codeup.demo.repos.PostRepository;
 import com.codeup.demo.repos.UserRepository;
 import com.codeup.demo.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +55,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post postToBeSaved){
-        User userDb = userDao.getOne(1L);
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postToBeSaved.setOwner(userDb);
         Post dbPost = postDao.save(postToBeSaved);
         emailService.prepareAndSend(dbPost, "Post has been created", "You can find it with the ID of: " + dbPost.getId());
