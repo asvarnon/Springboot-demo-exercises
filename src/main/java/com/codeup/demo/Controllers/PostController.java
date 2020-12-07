@@ -83,5 +83,14 @@ public class PostController {
         return "redirect:/posts";
     }
 
+    @GetMapping("/posts.json")
+    public @ResponseBody List<Post> viewAllPostsInJSONFormat(){
+        return postDao.findAll();
+    }
+
+    @GetMapping("/posts/ajax")
+    public String viewAllPostsWithAjax(){
+        return "posts/ajax";
+    }
 
 }

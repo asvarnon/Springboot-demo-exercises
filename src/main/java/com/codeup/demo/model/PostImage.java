@@ -1,5 +1,8 @@
 package com.codeup.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +16,7 @@ public class PostImage {
     private String path;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn (name = "post_id")
     private Post post;
 

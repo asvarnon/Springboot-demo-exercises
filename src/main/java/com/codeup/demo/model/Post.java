@@ -1,5 +1,8 @@
 package com.codeup.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,10 +20,13 @@ public class Post {
     @Column(nullable = false,columnDefinition = "TEXT")
     private String body;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn (name = "owner_id")
+    @JsonManagedReference
     private User owner;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @JsonBackReference
     private List<PostImage> images;
 
     @ManyToMany(cascade = CascadeType.ALL)

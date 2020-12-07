@@ -1,6 +1,10 @@
 package com.codeup.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -16,7 +20,12 @@ public class User {
     private String username;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
+
+//    @OneToMany(mappedBy = "user")
+//    @JsonBackReference
+//    private List<Post> posts;
 
     public User(){}
 
@@ -73,4 +82,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+//    public List<Post> getPosts() {
+//        return posts;
+//    }
+//
+//    public void setPosts(List<Post> posts) {
+//        this.posts = posts;
+//    }
 }
